@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="jquery.min.js"></script>
+    <script src="main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="mui.min.css">
+    <style type="text/css">
+        #list {
+            /*避免导航边框和列表背景边框重叠，看起来像两条边框似得；*/
+            margin-top: -1px;
+        }
+
+        html,
+        body,
+        .mui-content {
+            height: 0px;
+            margin: 0px;
+            background-color: #efeff4;
+        }
+
+        h5.mui-content-padded {
+            margin-left: 0px !important;
+            margin-top: 20px !important;
+        }
+
+        .mui-card {
+            margin: 0px;
+        }
+
+        .mui-input-row label {
+            /*padding-top: 11px;*/
+            /*padding-right: 15px;*/
+            /*padding-bottom: 11px;*/
+            /*padding-left: 15px;*/
+            width: 50%;
+        }
+        .mui-numbox {
+            width: 170px ;
+        }
+    </style>
+    <title>对数温差计算小程序</title>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <!--    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <h1 class="mui-title">对数温差计算小程序</h1>
+    <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right"
+            id="reset">
+        重置
+    </button>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+
+        <div class="mui-card">
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>换热量(kw):</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="q" id="q"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>热测温度1:</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="T1" id="ht1"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>热测温度2</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="T2" id="ht2"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>冷测温度1</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="t1" id="ct1"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>冷测温度2</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="t2" id="ct2"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>板型对应横截面积</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="a" id="a"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>对应角孔(<span id="dn"></span>):</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="dn1" id="dn1"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mui-input-row">
+                    <label>流道数量</label>
+                    <div class="mui-numbox">
+                        <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                        <input class="mui-input-numbox" type="number" name="ln" id="ln"/>
+                        <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    </div>
+                </div>
+<!--                <div class="mui-input-row">-->
+<!--                    <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined"-->
+<!--                            id="reset">-->
+<!--                        重置-->
+<!--                    </button>-->
+<!--                </div>-->
+            </form>
+        </div>
+        <!--    换热量(kw):<input type="text" name="q" id="q"><br>-->
+        <!--    热测温度1：<input type="text" name="T1" id="ht1"><br>-->
+        <!--    热测温度2：<input type="text" name="T2" id="ht2"><br>-->
+        <!--    冷测温度1: <input type="text" name="t1" id="ct1"><br>-->
+        <!--    冷测温度2：<input type="text" name="t2" id="ct2"><br>-->
+        <!--    板型对应横截面积：<input type="text" name="a" id="a"><br>-->
+        <!--    输入对应角孔 (<span id="dn"></span>): <input type="text" name="dn1" id="dn1"><br>-->
+        <!--    输入流道数量: <input type="text" name="ln" id="ln"><br>-->
+
+
+        <!--<input type="button" value="计算" onclick="calc()">-->
+
+        <br/>
+        <div class="mui-card">
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <div id="output">------</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="mui.min.js"></script>
+<script>
+    mui.init();
+</script>
+</html>
